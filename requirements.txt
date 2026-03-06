@@ -1,0 +1,39 @@
+# Core Data Processing
+numpy==1.24.3
+pandas==2.0.3
+scipy==1.11.1
+
+# Geospatial and Satellite Data
+earthengine-api==0.1.362
+rasterio==1.3.8
+geopandas==0.13.2
+shapely==2.0.1
+fiona==1.9.4
+
+# Machine Learning
+scikit-learn==1.3.0
+joblib==1.3.2
+
+# Time Series Analysis
+statsmodels==0.14.0
+
+# Visualization
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Web Backend (Optional)
+flask==2.3.3
+flask-cors==4.0.0
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3
+tqdm==4.66.1
+
+# Optional: Deep Learning (for CNN experiments)
+# tensorflow==2.13.0
+# keras==2.13.1
+
+# Optional: Advanced Image Processing
+# opencv-python==4.8.0
+# pillow==10.0.0

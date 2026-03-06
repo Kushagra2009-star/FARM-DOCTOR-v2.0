@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crop Health Monitoring System</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+        
+        .navbar-custom {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        #map {
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-custom {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .card-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+        
+        .stat-card {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .health-healthy { color: #4caf50; }
+        .health-mild { color: #ffc107; }
+        .health-severe { color: #ff9800; }
+        .health-critical { color: #f44336; }
+        
+        .alert-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid;
+            border-radius: 5px;
+            background: white;
+        }
+        
+        .alert-critical { border-left-color: #f44336; background: #ffebee; }
+        .alert-warning { border-left-color: #ff9800; background: #fff3e0; }
+        .alert-watch { border-left-color: #ffc107; background: #fffde7; }
+        
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        .btn-custom {
+            border-radius: 25px;
+            padding: 8px 25px;
+            font-weight: 500;
+        }
+        
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .timestamp {
+            color: #999;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                🛰️ AI Crop Health Monitoring System
+            </span>
+            <div class="d-flex">
+                <button class="btn btn-outline-light btn-sm me-2" onclick="showAbout()">About</button>
+                <button class="btn btn-outline-light btn-sm" onclick="showHelp()">Help</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Left Column: Map and Controls -->
+            <div class="col-lg-8">
+                <!-- Location Input -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">📍 Select Location</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="number" class="form-control" id="latitude" 
+                                       placeholder="Latitude" value="12.9716">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" class="form-control" id="longitude" 
+                                       placeholder="Longitude" value="77.5946">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-success btn-custom w-100" onclick="updateLocation()">
+                                    Load Data
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" id="startDate" 
+                                       value="2024-01-01">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" id="endDate" 
+                                       value="2024-12-31">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">🗺️ Field Map</h5>
+                        <div id="map"></div>
+                        <div class="legend mt-3">
+                            <strong>Health Status Legend:</strong>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #4caf50;"></div>
+                                <span>🟢 Healthy (NDVI > 0.65)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #ffc107;"></div>
+                                <span>🟡 Mild Stress (0.45 - 0.65)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #ff9800;"></div>
+                                <span>🟠 Severe Stress (0.25 - 0.45)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: #f44336;"></div>
+                                <span>🔴 Critical (< 0.25)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Series Chart -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">📈 NDVI Time Series</h5>
+                        <canvas id="ndviChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Statistics and Alerts -->
+            <div class="col-lg-4">
+                <!-- Health Summary -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">🌾 Health Summary</h5>
+                        <div class="row text-center">
+                            <div class="col-6 stat-card border-end">
+                                <div class="stat-value health-healthy" id="healthyPercent">65%</div>
+                                <div class="stat-label">Healthy</div>
+                            </div>
+                            <div class="col-6 stat-card">
+                                <div class="stat-value health-mild" id="mildPercent">25%</div>
+                                <div class="stat-label">Mild Stress</div>
+                            </div>
+                        </div>
+                        <div class="row text-center mt-3">
+                            <div class="col-6 stat-card border-end">
+                                <div class="stat-value health-severe" id="severePercent">8%</div>
+                                <div class="stat-label">Severe</div>
+                            </div>
+                            <div class="col-6 stat-card">
+                                <div class="stat-value health-critical" id="criticalPercent">2%</div>
+                                <div class="stat-label">Critical</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Status -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">📊 Current Status</h5>
+                        <div class="mb-3">
+                            <strong>Latest NDVI:</strong>
+                            <span class="float-end" id="currentNDVI">0.72</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Trend (30-day):</strong>
+                            <span class="float-end" id="trendStatus">↗️ Increasing</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Health Classification:</strong>
+                            <span class="float-end health-healthy" id="healthClass">Healthy</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Confidence:</strong>
+                            <span class="float-end" id="confidence">87%</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong>Yield Potential:</strong>
+                            <span class="float-end" id="yieldPotential">92%</span>
+                        </div>
+                        <p class="timestamp text-center mt-3" id="lastUpdate">
+                            Last updated: 2024-02-08
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Active Alerts -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">🚨 Active Alerts</h5>
+                        <div id="alertContainer">
+                            <!-- Alerts will be dynamically inserted here -->
+                            <div class="alert-item alert-warning">
+                                <strong>⚠️ Declining Trend</strong>
+                                <p class="mb-1">NDVI has decreased by 0.08 over past 14 days</p>
+                                <small class="text-muted">Detected: 2024-02-07</small>
+                            </div>
+                            <div class="alert-item alert-watch">
+                                <strong>👁️ Watch Status</strong>
+                                <p class="mb-1">Increased monitoring recommended for field section A</p>
+                                <small class="text-muted">Detected: 2024-02-05</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    <strong>⚠️ Important Disclaimer:</strong>
+                    <p class="mb-0 mt-2" style="font-size: 0.85rem;">
+                        This system provides AI-assisted crop health insights based on satellite imagery. 
+                        Results should be validated with field observations and used alongside agronomic 
+                        expertise. Yield estimates are relative indices only, not absolute predictions.
+                    </p>
+                </div>
+
+                <!-- Actions -->
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">📥 Export Options</h5>
+                        <button class="btn btn-primary btn-custom w-100 mb-2" onclick="exportReport()">
+                            📄 Download Report
+                        </button>
+                        <button class="btn btn-outline-primary btn-custom w-100 mb-2" onclick="exportData()">
+                            💾 Export Data (CSV)
+                        </button>
+                        <button class="btn btn-outline-secondary btn-custom w-100" onclick="shareLink()">
+                            🔗 Share Analysis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Main Application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

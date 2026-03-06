@@ -1,0 +1,16 @@
+feature,importance
+NDVI_rate,0.0
+days_since_peak,0.0
+NDVI_season_max,0.0
+NDVI_trend_30d,0.0
+NDVI_trend_7d,0.0
+NDVI_30d_std,0.0
+NDVI_30d_mean,0.0
+NDVI_7d_mean,0.0
+NDVI_delta,0.0
+B8,0.0
+B4,0.0
+SAVI,0.0
+EVI,0.0
+NDWI,0.0
+NDVI,0.0
