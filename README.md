@@ -434,10 +434,7 @@ If you use this code in your research, please cite:
 
 ## ⚡ Quick Links
 
-- 📖 [Full Documentation](docs/README.md)
-- 🎓 [Tutorial Notebook](notebooks/tutorial.ipynb)
-- 🐛 [Issue Tracker](https://github.com/Kushagra2009-star/crop-health-monitoring/issues)
-- 💬 [Discussion Forum](https://github.com/Kushagra2009-star/crop-health-monitoring/discussions)
+- 📖 [Full Documentation](https://github.com/Kushagra2009-star/IMPLEMENTATION_SUMMARY.md)
 - 📊 [Sample Datasets](https://github.com/Kushagra2009-star/ndvi_timeseries.png)
 
 ---
