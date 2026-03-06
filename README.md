@@ -438,7 +438,7 @@ If you use this code in your research, please cite:
 - 🎓 [Tutorial Notebook](notebooks/tutorial.ipynb)
 - 🐛 [Issue Tracker](https://github.com/Kushagra2009-star/crop-health-monitoring/issues)
 - 💬 [Discussion Forum](https://github.com/Kushagra2009-star/crop-health-monitoring/discussions)
-- 📊 [Sample Datasets](data/samples/)
+- 📊 [Sample Datasets](ndvi_timeseries.png)
 
 ---
 
