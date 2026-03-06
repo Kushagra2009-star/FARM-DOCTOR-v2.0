@@ -434,7 +434,7 @@ If you use this code in your research, please cite:
 
 ## ⚡ Quick Links
 
-- 📖 [Full Documentation](https://github.com/Kushagra2009-star/IMPLEMENTATION_SUMMARY.md)
+- 📖 [Full Documentation](IMPLEMENTATION_SUMMARY.md)
 - 📊 [Sample Datasets](ndvi_timeseries.png)
 
 ---
