@@ -432,9 +432,8 @@ If you use this code in your research, please cite:
 
 ---
 
-## ⚡ Quick Links
+## ⚡ DATASETS FROM THE AUTHOR
 
-- 📖 [Full Documentation](IMPLEMENTATION_SUMMARY.md)
 - 📊 [Sample Datasets](ndvi_timeseries.png)
 
 ---
