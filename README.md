@@ -407,7 +407,7 @@ If you use this code in your research, please cite:
   author = {Kushagra Gangwar},
   title = {FARM-DOCTOR-v2.0},
   year = {2026},
-  url = {https://github.com/Kushagra2009-star/crop-health-monitoring},
+  url = {https://github.com/Kushagra2009-star/FARM-DOCTOR-v2.0},
   version = {2.0}
 }
 ```
