@@ -435,7 +435,7 @@ If you use this code in your research, please cite:
 ## ⚡ Quick Links
 
 - 📖 [Full Documentation](https://github.com/Kushagra2009-star/IMPLEMENTATION_SUMMARY.md)
-- 📊 [Sample Datasets](https://github.com/Kushagra2009-star/ndvi_timeseries.png)
+- 📊 [Sample Datasets](https://github.com/Kushagra2009-star/FARM-DOCTOR-v2.0/blob/master/ndvi_timeseries.png)
 
 ---
 
