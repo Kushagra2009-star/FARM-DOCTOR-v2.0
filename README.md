@@ -76,7 +76,7 @@ Moving beyond basic NDVI visualization to create an **actionable intelligence sy
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/yourusername/crop-health-monitoring.git
+git clone https://github.com/Kushagra2009-star/crop-health-monitoring.git
 cd crop-health-monitoring
 
 # 2. Create virtual environment
@@ -404,11 +404,11 @@ If you use this code in your research, please cite:
 
 ```bibtex
 @software{crop_health_monitoring_2024,
-  author = {Agricultural AI Research Project},
-  title = {AI-Assisted Satellite-Driven Crop Health Monitoring System},
-  year = {2024},
-  url = {https://github.com/yourusername/crop-health-monitoring},
-  version = {1.0}
+  author = {Kushagra Gangwar},
+  title = {FARM-DOCTOR-v2.0},
+  year = {2026},
+  url = {https://github.com/Kushagra2009-star/crop-health-monitoring},
+  version = {2.0}
 }
 ```
 
@@ -426,10 +426,9 @@ If you use this code in your research, please cite:
 
 ## 📞 Contact
 
-**Project Lead**: [Your Name]  
-**Email**: your.email@example.com  
-**GitHub**: [@yourusername](https://github.com/yourusername)  
-**Research Group**: Agricultural AI Lab
+**Project Lead**: [Kushagra Gangwar]  
+**Email**: gangwarkushagra70@gmail.com  
+**GitHub**: [Kushagra Gangwar](https://github.com/Kushagra2009-star)  
 
 ---
 
@@ -437,8 +436,8 @@ If you use this code in your research, please cite:
 
 - 📖 [Full Documentation](docs/README.md)
 - 🎓 [Tutorial Notebook](notebooks/tutorial.ipynb)
-- 🐛 [Issue Tracker](https://github.com/yourusername/crop-health-monitoring/issues)
-- 💬 [Discussion Forum](https://github.com/yourusername/crop-health-monitoring/discussions)
+- 🐛 [Issue Tracker](https://github.com/Kushagra2009-star/crop-health-monitoring/issues)
+- 💬 [Discussion Forum](https://github.com/Kushagra2009-star/crop-health-monitoring/discussions)
 - 📊 [Sample Datasets](data/samples/)
 
 ---
