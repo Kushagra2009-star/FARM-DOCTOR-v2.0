@@ -400,21 +400,5 @@ We thank the European Space Agency for free Sentinel-2 data, Google for Earth En
 
 ## 9. Supplementary Materials
 
-**Code Repository**: https://github.com/yourusername/crop-health-monitoring  
-**Sample Data**: [DOI or Zenodo link]  
-**Interactive Demo**: [Web interface URL]  
-**Video Tutorial**: [YouTube/Vimeo link]
-
----
-
-**Corresponding Author**: [Name], [Email], [Institution]
-
-**Conflict of Interest**: None declared
-
+**Code Repository**: https://github.com/Kushagra2009-star/FARM-DOCTOR-v2.0.git  
 **Data Availability**: All code and sample data publicly available under MIT License
-
----
-
-**Submitted to**: [Journal Name]  
-**Date**: [Submission Date]  
-**Manuscript ID**: [If applicable]
